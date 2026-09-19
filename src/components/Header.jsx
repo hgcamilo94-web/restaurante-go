@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
 
 function Header() {
   const nombreRestaurante = "RestauranteGo";
+  const { cantidadTotal } = useContext(CartContext);
 
   return (
     <header className="header">
@@ -15,6 +18,10 @@ function Header() {
         <NavLink to="/catalogo">
           Catálogo
         </NavLink>
+
+        <span className="cart-badge">
+          🛒 {cantidadTotal}
+        </span>
       </nav>
     </header>
   );

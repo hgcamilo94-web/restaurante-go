@@ -204,3 +204,21 @@ main {
   padding: 1.5rem;
   margin-top: auto;
 }
+
+/* Badge del carrito en Header */
+.cart-badge {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* Alineación de botones en tarjetas de catálogo */
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}

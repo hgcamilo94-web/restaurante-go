@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
 
 function Detalle() {
   const { id } = useParams();
+  const { agregarAlCarrito } = useContext(CartContext);
 
   const productos = [
     { id: 1, nombre: "Hamburguesa Clásica", precio: 18000, descripcion: "Carne 100% de res, queso cheddar y vegetales frescos." },
@@ -32,7 +35,12 @@ function Detalle() {
         <p className="description">{producto.descripcion}</p>
         
         <div className="detalle-actions">
-          <button className="primary-button">Agregar al carrito</button>
+          <button
+            className="primary-button"
+            onClick={() => agregarAlCarrito(producto)}
+          >
+            Agregar al carrito
+          </button>
           <Link to="/catalogo" className="secondary-button">
             Volver al catálogo
           </Link>

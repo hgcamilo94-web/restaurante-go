@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
 
 function Catalogo() {
   const [busqueda, setBusqueda] = useState("");
+  const { agregarAlCarrito } = useContext(CartContext);
 
   const productos = [
     { id: 1, nombre: "Hamburguesa Clásica", precio: 18000, descripcion: "Carne 100% de res, queso cheddar y vegetales frescos." },
@@ -33,12 +35,22 @@ function Catalogo() {
         {productosFiltrados.length > 0 ? (
           productosFiltrados.map((producto) => (
             <article className="product-card" key={producto.id}>
-              <h2>{producto.nombre}</h2>
-              <p className="price">${producto.precio.toLocaleString()}</p>
-              <p className="description">{producto.descripcion}</p>
-              <Link to={`/detalle/${producto.id}`} className="secondary-button">
-                Ver detalle
-              </Link>
+              <div>
+                <h2>{producto.nombre}</h2>
+                <p className="price">${producto.precio.toLocaleString()}</p>
+                <p className="description">{producto.descripcion}</p>
+              </div>
+              <div className="card-actions">
+                <button
+                  className="primary-button"
+                  onClick={() => agregarAlCarrito(producto)}
+                >
+                  Agregar al carrito
+                </button>
+                <Link to={`/detalle/${producto.id}`} className="secondary-button">
+                  Ver detalle
+                </Link>
+              </div>
             </article>
           ))
         ) : (
