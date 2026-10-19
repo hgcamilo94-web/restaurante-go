@@ -222,3 +222,298 @@ main {
   gap: 0.5rem;
   margin-top: 1rem;
 }
+
+
+/* =========================================
+   RestauranteGo — mejoras visuales
+   ========================================= */
+
+:root {
+  --rg-primary: #e85d4a;
+  --rg-primary-hover: #cf4938;
+  --rg-bg: #faf8f5;
+  --rg-surface: #ffffff;
+  --rg-text: #25231f;
+  --rg-muted: #706b65;
+  --rg-border: #e9e3dc;
+  --rg-radius: 16px;
+  --rg-shadow: 0 8px 24px rgba(37, 35, 31, 0.07);
+}
+
+body {
+  background-color: var(--rg-bg);
+  color: var(--rg-text);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.header {
+  position: relative;
+  z-index: 2;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.1rem clamp(1rem, 4vw, 3.5rem);
+  background-color: #24211f;
+}
+
+.logo {
+  letter-spacing: -0.5px;
+}
+
+.nav {
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.nav a {
+  transition: color 180ms ease;
+}
+
+.nav a:hover {
+  color: #ffb4a8;
+}
+
+main {
+  padding: clamp(1.25rem, 4vw, 3rem) clamp(1rem, 3vw, 2rem);
+}
+
+.hero {
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  padding: clamp(1.5rem, 4vw, 3rem) 0;
+}
+
+.hero-content {
+  min-width: 0;
+}
+
+.hero-tag {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  letter-spacing: 1.5px;
+  font-size: 0.8rem;
+}
+
+.hero h1 {
+  color: var(--rg-text);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -1.4px;
+  margin: 0.5rem 0 1.25rem;
+}
+
+.hero p {
+  max-width: 540px;
+  color: var(--rg-muted);
+  line-height: 1.8;
+}
+
+.hero-image img {
+  display: block;
+  width: 100%;
+  min-height: 260px;
+  max-height: 430px;
+  object-fit: cover;
+  border-radius: 22px;
+  box-shadow: var(--rg-shadow);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.feature-card,
+.product-card,
+.detalle-card {
+  background: var(--rg-surface);
+  border: 1px solid var(--rg-border);
+  border-radius: var(--rg-radius);
+  box-shadow: var(--rg-shadow);
+}
+
+.feature-card {
+  padding: 1.75rem;
+}
+
+.feature-card h2 {
+  margin-bottom: 0.75rem;
+}
+
+.feature-card p,
+.description {
+  color: var(--rg-muted);
+  line-height: 1.7;
+}
+
+.catalogo-container {
+  gap: 1.75rem;
+}
+
+.catalogo-container > h1,
+.detalle-container > h1 {
+  color: var(--rg-text);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  letter-spacing: -1px;
+  margin: 0;
+}
+
+.search-input {
+  max-width: 520px;
+  min-height: 48px;
+  background: #fff;
+  border: 1px solid var(--rg-border);
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.search-input:focus {
+  border-color: var(--rg-primary);
+  box-shadow: 0 0 0 3px rgba(232, 93, 74, 0.13);
+}
+
+.products-grid {
+  align-items: stretch;
+  gap: 1.5rem;
+}
+
+.product-card {
+  gap: 1.25rem;
+  padding: 1.5rem;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.product-card h2 {
+  color: var(--rg-text);
+  line-height: 1.35;
+}
+
+.product-card .price,
+.detalle-card .price {
+  color: #27804a;
+}
+
+.card-actions {
+  gap: 0.75rem;
+}
+
+.primary-button,
+.secondary-button {
+  min-height: 44px;
+  padding: 0.8rem 1.15rem;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.primary-button {
+  background-color: var(--rg-primary);
+  color: #fff;
+}
+
+.primary-button:hover {
+  background-color: var(--rg-primary-hover);
+}
+
+.secondary-button {
+  background-color: #f0ece7;
+  color: var(--rg-text);
+}
+
+.secondary-button:hover {
+  background-color: #e5ded6;
+}
+
+.primary-button:focus-visible,
+.secondary-button:focus-visible,
+.nav a:focus-visible {
+  outline: 3px solid rgba(232, 93, 74, 0.55);
+  outline-offset: 3px;
+}
+
+.detalle-card {
+  width: 100%;
+}
+
+.footer {
+  margin-top: auto;
+  padding: 1.5rem 1rem;
+  background-color: #24211f;
+}
+
+/* Adaptación para tabletas y móviles */
+
+@media (max-width: 760px) {
+  .header {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .nav {
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-content,
+  .hero-image {
+    width: 100%;
+  }
+
+  .hero-image img {
+    min-height: 220px;
+    max-height: 320px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    padding: 1.35rem;
+  }
+
+  .detalle-actions {
+    flex-direction: column;
+  }
+
+  .detalle-actions > * {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  main {
+    padding: 1.25rem 0.85rem;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-card {
+    padding: 1.15rem;
+  }
+
+  .cart-badge {
+    padding: 0.3rem 0.65rem;
+  }
+}
+
+@media (hover: hover) {
+  .product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px rgba(37, 35, 31, 0.11);
+  }
+}

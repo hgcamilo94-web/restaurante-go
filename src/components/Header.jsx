@@ -19,9 +19,9 @@ function Header() {
           Catálogo
         </NavLink>
 
-        <span className="cart-badge">
-          🛒 {cantidadTotal}
-        </span>
+        <NavLink to="/carrito" className="cart-badge">
+          🛒 Carrito ({cantidadTotal})
+        </NavLink>
       </nav>
     </header>
   );

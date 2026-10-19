@@ -1,17 +1,36 @@
-import { useState, useContext } from "react";
+
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
+import api from "../Services/api.js";
 
 function Catalogo() {
   const [busqueda, setBusqueda] = useState("");
+  const [productos, setProductos] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
   const { agregarAlCarrito } = useContext(CartContext);
 
-  const productos = [
-    { id: 1, nombre: "Hamburguesa Clásica", precio: 18000, descripcion: "Carne 100% de res, queso cheddar y vegetales frescos." },
-    { id: 2, nombre: "Pizza Especial", precio: 25000, descripcion: "Masa artesanal, jamón, queso mozzarella y champiñones." },
-    { id: 3, nombre: "Pasta Alfredo", precio: 22000, descripcion: "Fettuccine con salsa cremosita alfredo y pollo a la parrilla." },
-    { id: 4, nombre: "Ensalada César", precio: 15000, descripcion: "Lechuga fresca, crotones, queso parmesano y aderezo césar." }
-  ];
+  useEffect(() => {
+    const cargarProductos = async () => {
+      try {
+        const response = await api.get("/productos");
+        const productosAdaptados = response.data.map((producto) => ({
+          ...producto,
+          id: producto._id,
+          descripcion: producto.descripcion || producto.categoria,
+        }));
+
+        setProductos(productosAdaptados);
+      } catch (err) {
+        setError("No fue posible cargar los productos. Intenta nuevamente.");
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    cargarProductos();
+  }, []);
 
   const productosFiltrados = productos.filter((producto) =>
     producto.nombre.toLowerCase().includes(busqueda.toLowerCase())
@@ -31,32 +50,48 @@ function Catalogo() {
         />
       </div>
 
-      <div className="products-grid">
-        {productosFiltrados.length > 0 ? (
-          productosFiltrados.map((producto) => (
-            <article className="product-card" key={producto.id}>
-              <div>
-                <h2>{producto.nombre}</h2>
-                <p className="price">${producto.precio.toLocaleString()}</p>
-                <p className="description">{producto.descripcion}</p>
-              </div>
-              <div className="card-actions">
-                <button
-                  className="primary-button"
-                  onClick={() => agregarAlCarrito(producto)}
-                >
-                  Agregar al carrito
-                </button>
-                <Link to={`/detalle/${producto.id}`} className="secondary-button">
-                  Ver detalle
-                </Link>
-              </div>
-            </article>
-          ))
-        ) : (
-          <p className="no-results">No se encontraron productos que coincidan con "{busqueda}".</p>
-        )}
-      </div>
+      {cargando && <p>Cargando productos...</p>}
+      {error && <p role="alert">{error}</p>}
+
+      {!cargando && !error && (
+        <div className="products-grid">
+          {productosFiltrados.length > 0 ? (
+            productosFiltrados.map((producto) => (
+              <article className="product-card" key={producto.id}>
+                <div>
+                  <h2>{producto.nombre}</h2>
+                  <p className="price">
+                    ${Number(producto.precio).toLocaleString("es-CO")}
+                  </p>
+                  <p className="description">{producto.descripcion}</p>
+                </div>
+
+                <div className="card-actions">
+                  <button
+                    className="primary-button"
+                    onClick={() => agregarAlCarrito(producto)}
+                  >
+                    Agregar al carrito
+                  </button>
+
+                  <Link
+                    to={`/detalle/${producto.id}`}
+                    className="secondary-button"
+                  >
+                    Ver detalle
+                  </Link>
+                </div>
+              </article>
+            ))
+          ) : (
+            <p className="no-results">
+              {busqueda
+                ? `No se encontraron productos que coincidan con "${busqueda}".`
+                : "Todavía no hay productos en el catálogo."}
+            </p>
+          )}
+        </div>
+      )}
     </section>
   );
 }

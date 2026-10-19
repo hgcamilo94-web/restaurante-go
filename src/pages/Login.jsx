@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import api from '../services/api';
+import api from '../Services/api.js';
 
 const Login = () => {
   const [esRegistro, setEsRegistro] = useState(false);
