@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
@@ -22,11 +21,11 @@ function Catalogo() {
         }));
 
         setProductos(productosAdaptados);
-        } catch {
-          setError("No fue posible cargar los productos. Intenta nuevamente.");
-        } finally {
-          setCargando(false);
-        }
+      } catch {
+        setError("No fue posible cargar los productos. Intenta nuevamente.");
+      } finally {
+        setCargando(false);
+      }
     };
 
     cargarProductos();
@@ -58,6 +57,21 @@ function Catalogo() {
           {productosFiltrados.length > 0 ? (
             productosFiltrados.map((producto) => (
               <article className="product-card" key={producto.id}>
+                {/* Imagen del producto traída desde MongoDB */}
+                {producto.imagen && (
+                  <img
+                    src={producto.imagen}
+                    alt={producto.nombre}
+                    className="product-image"
+                    style={{
+                      width: "100%",
+                      height: "180px",
+                      objectFit: "cover",
+                      borderRadius: "8px 8px 0 0"
+                    }}
+                  />
+                )}
+
                 <div>
                   <h2>{producto.nombre}</h2>
                   <p className="price">

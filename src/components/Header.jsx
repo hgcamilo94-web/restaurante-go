@@ -13,9 +13,11 @@ function Header() {
       <div className="logo">{nombreRestaurante}</div>
 
       <nav className="nav">
-        <NavLink to="/" end>
-          Inicio
-        </NavLink>
+        {usuario && (
+          <NavLink to="/inicio" end>
+            Inicio
+          </NavLink>
+        )}
 
         <NavLink to="/catalogo">
           Catálogo
