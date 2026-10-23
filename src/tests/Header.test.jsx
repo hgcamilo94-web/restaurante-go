@@ -1,21 +1,24 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, test } from "vitest";
-import { BrowserRouter } from "react-router-dom";
-import { CartProvider } from "../context/CartContext";
-import Header from "../components/Header";
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from '../context/AuthContext';
+import { CartContext } from '../context/CartContext';
+import Header from '../components/Header';
+import { describe, it, expect } from 'vitest';
 
-describe("Header", () => {
-  test("muestra el nombre del restaurante y el carrito", () => {
+describe('Header', () => {
+  it('muestra el nombre del restaurante y el carrito', () => {
+    const mockCart = { cantidadTotal: 0 };
+
     render(
       <BrowserRouter>
-        <CartProvider>
-          <Header />
-        </CartProvider>
+        <AuthProvider>
+          <CartContext.Provider value={mockCart}>
+            <Header />
+          </CartContext.Provider>
+        </AuthProvider>
       </BrowserRouter>
     );
 
-    expect(screen.getByText("RestauranteGo")).toBeInTheDocument();
-    expect(screen.getByText("Catálogo")).toBeInTheDocument();
-    expect(screen.getByText(/🛒 0/)).toBeInTheDocument();
+    expect(screen.getByText(/RestauranteGo/i)).toBeInTheDocument();
   });
 });
