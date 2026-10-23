@@ -1,15 +1,15 @@
-
 import { createContext, useContext, useState } from 'react';
 import api from '../Services/api.js';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [token, setToken] = useState(() => localStorage.getItem('token'));
   const [usuario, setUsuario] = useState(() => {
-    const token = localStorage.getItem('token');
+    const tokenGuardado = localStorage.getItem('token');
     const usuarioGuardado = localStorage.getItem('usuario');
 
-    if (!token || !usuarioGuardado) {
+    if (!tokenGuardado || !usuarioGuardado) {
       return null;
     }
 
@@ -29,13 +29,14 @@ export const AuthProvider = ({ children }) => {
         password,
       });
 
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem(
-        'usuario',
-        JSON.stringify(response.data.usuario)
-      );
+      const tokenRecibido = response.data.token;
+      const usuarioRecibido = response.data.usuario;
 
-      setUsuario(response.data.usuario);
+      localStorage.setItem('token', tokenRecibido);
+      localStorage.setItem('usuario', JSON.stringify(usuarioRecibido));
+
+      setToken(tokenRecibido);
+      setUsuario(usuarioRecibido);
 
       return { success: true };
     } catch (error) {
@@ -51,11 +52,12 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
+    setToken(null);
     setUsuario(null);
   };
 
   return (
-    <AuthContext.Provider value={{ usuario, login, logout }}>
+    <AuthContext.Provider value={{ usuario, token, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

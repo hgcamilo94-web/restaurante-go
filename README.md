@@ -1,30 +1,71 @@
-# RestauranteGo — Plataforma Web Gastronómica
+# RestauranteGo — Plataforma Web Gastronómica Full-Stack
 
-## Definición del Problema
-En el sector gastronómico actual, los clientes buscan visualizar menús de forma rápida, filtrar platos según sus preferencias e interactuar con la oferta comercial sin la lentitud de las páginas tradicionales. **RestauranteGo** es una Single Page Application (SPA) desarrollada para optimizar la experiencia del usuario, permitiendo explorar productos, buscar opciones en tiempo real y gestionar un carrito de compras dinámico sin recargas de página.
+## Definición del Proyecto
+RestauranteGo es una aplicación web Full-Stack tipo Single Page Application (SPA) desarrollada para el sector gastronómico. Permite a los usuarios visualizar menús interactivos, filtrar platos, gestionar un carrito de compras dinámico y acceder a un panel de control administrativo protegido con autenticación JWT y persistencia de datos en la nube con MongoDB Atlas.
+
+---
 
 ## Tecnologías Utilizadas
-- **React 18** — Librería para interfaces de usuario basada en componentes.
-- **Vite** — Tooling y empaquetador de aplicaciones web de alto rendimiento.
-- **React Router DOM v6** — Navegación del lado del cliente (SPA) con Layouts e íconos dinámicos.
-- **JavaScript (ES6+)** — Lógica de programación.
-- **CSS3 (Flexbox & Grid)** — Estilos responsive y maquetación.
-- **Git & GitHub** — Control de versiones e historial de desarrollo.
+
+### Frontend:
+- React 19 — Librería para interfaces de usuario basada en componentes.
+- Vite 8 — Tooling y empaquetador de alto rendimiento.
+- React Router DOM 7 — Enrutamiento del lado del cliente y protección de rutas.
+- Axios — Cliente HTTP con interceptores para inyección automática de tokens JWT.
+- CSS3 (Flexbox & Grid) — Diseño responsivo y moderno.
+
+### Backend:
+- Node.js & Express 5 — Servidor y API RESTful.
+- MongoDB Atlas & Mongoose 9 — Base de datos NoSQL en la nube y modelado de datos.
+- JWT (JSON Web Tokens) — Autenticación segura de usuarios.
+- Bcrypt — Encriptación de contraseñas.
+
+---
 
 ## Arquitectura del Proyecto
 
-```text
 restaurante-go/
-├── public/
-├── src/
-│   ├── assets/          # Recursos estáticos (imágenes locales)
-│   ├── components/      # Componentes de UI reutilizables (Header, Footer, HeroSection)
-│   ├── context/         # Estado global (CartContext)
-│   ├── layouts/         # Layout principal con <Outlet/> (MainLayout)
-│   ├── pages/           # Vistas principales (Home, Catalogo, Detalle)
-│   ├── App.css          # Estilos globales y reglas CSS Grid/Flexbox
-│   ├── App.jsx          # Configuración de rutas e inyección de Context
-│   └── main.jsx         # Punto de entrada de la aplicación
+├── Backend/             # Servidor Express, modelos Mongoose y rutas de API
+│   ├── Models/          # Esquemas de MongoDB (Producto.js, Usuario.js)
+│   ├── routes/          # Endpoints de autenticación y productos
+│   └── server.js        # Configuración principal del servidor
+├── src/                 # Código fuente del Frontend (React)
+│   ├── assets/          # Recursos estáticos
+│   ├── components/      # Componentes reutilizables (Navbar, Rutas Protegidas)
+│   ├── context/         # Estado global (AuthContext, CartContext)
+│   ├── pages/           # Vistas (Login, Registro, Catalogo, Detalle, Dashboard)
+│   ├── Services/        # Configuración de Axios (api.js)
+│   ├── App.jsx          # Configuración de rutas principales
+│   └── main.jsx         # Punto de entrada
+├── .env                 # Variables de entorno (Oculto en Git)
 ├── .gitignore
 ├── package.json
 └── README.md
+
+---
+
+## Guía de Instalación y Ejecución
+
+### 1. Clonar el repositorio
+git clone https://github.com/tu-usuario/restaurante-go.git
+cd restaurante-go
+
+### 2. Configuración del Backend
+1. Entra a la carpeta del backend y configura tu archivo .env con las siguientes variables:
+   PORT=5000
+   MONGO_URI=tu_cadena_de_conexion_mongodb_atlas
+   JWT_SECRET=tu_clave_secreta_jwt
+2. Instala las dependencias del backend:
+   cd Backend
+   npm install
+3. Inicia el servidor backend:
+   npm run dev
+
+### 3. Configuración del Frontend
+1. Abre otra terminal en la raíz del proyecto (restaurante-go).
+2. Instala las dependencias del frontend:
+   npm install
+3. Inicia el servidor de desarrollo del frontend:
+   npm run dev
+4. Para compilar la versión de producción:
+   npm run build

@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import api from "../Services/api.js";
 
 const Dashboard = () => {
-  const { usuario, logout, token } = useAuth();
+  const { usuario, logout } = useAuth();
   const navigate = useNavigate();
 
-  // Estados para el formulario de nuevo producto (Falla 3)
+  // Estados para el formulario de nuevo producto
   const [nombre, setNombre] = useState("");
   const [precio, setPrecio] = useState("");
   const [categoria, setCategoria] = useState("Comidas Rápidas");
@@ -29,22 +29,14 @@ const Dashboard = () => {
     setCargando(true);
 
     try {
-      // Enviamos explícitamente todos los campos incluyendo descripcion
-      await api.post(
-        "/productos",
-        {
-          nombre,
-          precio: Number(precio),
-          categoria,
-          descripcion: descripcion.trim() || `Delicioso plato de la categoría ${categoria}`,
-          imagen,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // El interceptor de api.js adjunta automáticamente el token JWT
+      await api.post("/productos", {
+        nombre,
+        precio: Number(precio),
+        categoria,
+        descripcion: descripcion.trim() || `Delicioso plato de la categoría ${categoria}`,
+        imagen,
+      });
 
       setMensaje("¡Producto creado y persistido en MongoDB Atlas con éxito!");
       setNombre("");
@@ -99,7 +91,7 @@ const Dashboard = () => {
         </button>
       </div>
 
-      {/* Sección del Formulario (Falla 3) */}
+      {/* Sección del Formulario */}
       <div
         style={{
           background: "#fff",
