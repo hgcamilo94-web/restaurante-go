@@ -1,4 +1,4 @@
-  import express from 'express';
+import express from 'express';
 import Producto from '../Models/Producto.js';
 import jwt from 'jsonwebtoken';
 
@@ -37,6 +37,9 @@ router.post('/', verificarToken, async (req, res) => {
     await nuevoProducto.save();
     res.status(201).json(nuevoProducto);
   } catch (error) {
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ mensaje: error.message });
+    }
     res.status(500).json({ error: error.message });
   }
 });

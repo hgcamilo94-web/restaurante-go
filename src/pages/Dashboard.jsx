@@ -44,8 +44,9 @@ const Dashboard = () => {
       setCategoria("Comidas Rápidas");
       setDescripcion("");
       setImagen("");
-    } catch {
-      setError("Error al crear el producto. Verifica los datos o tu sesión.");
+    } catch (err) {
+      const mensajeError = err.response?.data?.mensaje || err.response?.data?.error || "Error al crear el producto. Verifica los datos o tu sesión.";
+      setError(mensajeError);
     } finally {
       setCargando(false);
     }
@@ -71,7 +72,7 @@ const Dashboard = () => {
         <div>
           <h1 style={{ margin: "0 0 10px 0", fontSize: "1.8rem", color: "#333" }}>Panel de Control</h1>
           <p style={{ margin: 0, color: "#666" }}>
-            Bienvenido, <strong>{usuario?.nombre || usuario?.email}</strong> 👋
+            Bienvenido, <strong>{usuario?.nombre || usuario?.email}</strong>
           </p>
         </div>
         <button
@@ -176,6 +177,7 @@ const Dashboard = () => {
               type="url"
               value={imagen}
               onChange={(e) => setImagen(e.target.value)}
+              required
               placeholder="https://images.unsplash.com/..."
               style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #ccc", fontSize: "1rem", boxSizing: "border-box" }}
             />
