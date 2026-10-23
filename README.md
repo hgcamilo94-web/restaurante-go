@@ -22,8 +22,9 @@ RestauranteGo es una aplicación web Full-Stack tipo Single Page Application (SP
 
 ---
 
-## Arquitectura del Proyecto
+##  Arquitectura del Proyecto
 
+```text
 restaurante-go/
 ├── Backend/             # Servidor Express, modelos Mongoose y rutas de API
 │   ├── Models/          # Esquemas de MongoDB (Producto.js, Usuario.js)
