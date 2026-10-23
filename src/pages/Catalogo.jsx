@@ -22,11 +22,11 @@ function Catalogo() {
         }));
 
         setProductos(productosAdaptados);
-      } catch (err) {
-        setError("No fue posible cargar los productos. Intenta nuevamente.");
-      } finally {
-        setCargando(false);
-      }
+        } catch {
+          setError("No fue posible cargar los productos. Intenta nuevamente.");
+        } finally {
+          setCargando(false);
+        }
     };
 
     cargarProductos();

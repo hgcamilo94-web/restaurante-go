@@ -27,7 +27,7 @@ function Detalle() {
             descripcion: encontrado.descripcion || encontrado.categoria,
           });
         }
-      } catch (err) {
+      } catch {
         setError("No fue posible cargar el producto.");
       } finally {
         setCargando(false);
